@@ -99,7 +99,7 @@ assert(l.toList() == [2,4])
 
 
 # ================================================================
-# 3. partition the list around value x such that all nodes
+# 4. partition the list around value x such that all nodes
 # earlier are less than and all nodes greater than are later
 # ================================================================
 
@@ -127,6 +127,10 @@ l.fromList([10,2,3,8,4,7])
 l.head = partitionList(l.head, 5)
 # print l.toList()
 # TODO: write tests for this
+
+# ================================================================
+# 5. 
+# ================================================================
 
 
 
