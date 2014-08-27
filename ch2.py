@@ -129,36 +129,93 @@ l.head = partitionList(l.head, 5)
 # TODO: write tests for this
 
 # ================================================================
-# 5. 
+# 5. Two numbers represented by linked list
+# digits are stored in reverse order
+# Example: (7->1 -> 6) + (5 -> 9 -> 2) = 2->1-9
+# 617 + 295 = 912
 # ================================================================
+# good enough for now
+def addLinkedListNums(h1, h2):
+	total = LinkedList()
+	total.head = ListNode(0)
+	cur = total.head
+	carry = 0
+	while h1 or h2:
+		if h1:
+			cur.val = cur.val + h1.val
+			h1 = h1.next
+		if h2:
+			cur.val = cur.val + h2.val
+			h2 = h2.next
+
+		if cur.val >= 10:
+			carry = (cur.val / 10)
+			cur.val = cur.val - (cur.val / 10) * 10
+		else:
+			carry = 0
+
+		cur.next = ListNode(carry)
+		cur = cur.next
+	return total 
+
+l1 = LinkedList()
+l1.fromList([7,1,6])
+
+l2 = LinkedList()
+l2.fromList([5, 9 , 2])
+
+addLinkedListNums(l1.head, l2.head).toList()
+# TODO: write tests
+
+# ================================================================
+# 6. Node at beginning of a loop in a circular linked list
+# example: A -> B -> C -> D -> E -> C
+# output: C
+# ================================================================
+# DUMB WAY:
+def findStartOfCircle(head):
+	alreadySeen = set()
+	cur = head 
+	while cur:
+		if cur in alreadySeen:
+			return cur
+		else:
+			alreadySeen.add(cur)
+		cur = cur.next
+
+	return None
 
 
+l1 = LinkedList()
+l1.fromList([1,2,3,4,5,6,7])
+l1.tail.next = l1.head.next.next.next
+
+assert(findStartOfCircle(l1.head).val == 4)
+
+# ================================================================
+# 7.Check if a linked list is a palindrome 
+# ================================================================
+def isPalindrome(head):
+	(res, _) = isPalindromeHelper(head, head)
+	return res 
 
 
+def isPalindromeHelper(start, end):
+	if not end.next:
+		# start poppin'
+		return (start.val == end.val, start.next)
+	else:
+		(res, cur) = isPalindromeHelper(start, end.next)
+		return  (cur.val == end.val and res, cur.next)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+l1 = LinkedList()
+l1.fromList([1,2,2,1])
+assert(isPalindrome(l1.head) == True)
+l1.fromList([1,2,3,2,1])
+assert(isPalindrome(l1.head) == True)
+l1.fromList([1,2,3,1])
+assert(isPalindrome(l1.head) == False)
 
 
 
